@@ -1,14 +1,57 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>끄투만들기어렵다</title>
   <meta charset="utf-8">
-
+  <link rel="stylesheet" herf="mystyle.css">
 </head>
 
 <body>
-  <span>">"</span>
-  <p><input type="text" id="input">
-    <input type="button" value="입력" onclick=""></p>
+  <p id="oput1"> > </p>
+  <p><input type="text" id="input1">
+    <input type="button" value="입력" onclick="exe()" onkeyup="enterkey()">
+  </p>
+  <p id="oput2"> </p>
+
+  <script>
+    lastletter = "";
+    function exe() {
+      var text = document.getElementById('input1');
+      var intext = text.value;
+      document.getElementById("oput2").innerHTML = '';
+      if (intext.length < 2) {
+        document.getElementById("oput2").innerHTML = "두글자이상 입력하세요"
+        return;
+      }
+      console.log(intext);
+      if (lastletter != "") {
+        if (lastletter != intext.charAt(0)) {
+          document.getElementById("oput1").innerHTML += ">";
+          gameover();
+          return;
+        }
+      }
+      documnet.getElementById('oput1').innerHTML += intext;
+      documnet.getElementById('oput1').innertext += " >";
+      lastletter = intext.charAt(-1);
+      clear();
+    }
+
+    function enterkey() {
+      if (window.event.keycode == 13) {
+        exe();
+      }
+      function clear() {
+        document.getElementById('input1').value = '';
+      }
+      function gameover() {
+        lastletter = "";
+        document.getElementById("oput1").innerHTML = '>';
+        clear();
+      }
+    }
+  </script>
 </body>
+
 </html>
