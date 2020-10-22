@@ -10,11 +10,17 @@
 <body>
   <p id="oput1"> > </p>
   <p><input type="text" id="input1">
-    <input type="button" value="입력" onclick="exe()" onkeyup="enterkey()">
+    <input type="button" value="입력" onclick="exe()">
   </p>
   <p id="oput2"> </p>
 
   <script>
+    document.getElementById("input1").addEventListener("keyup",(event)=>{
+      event.preventDefault();
+      if(event.keyCode==13){
+        exe();
+      }
+    });
     lastletter = "";
     function exe() {
       var text = document.getElementById('input1');
@@ -22,35 +28,24 @@
       document.getElementById("oput2").innerHTML = '';
       if (intext.length < 2) {
         document.getElementById("oput2").innerHTML = "두글자이상 입력하세요"
+        text.value="";
         return;
       }
-      console.log(intext);
       if (lastletter != "") {
         if (lastletter != intext.charAt(0)) {
-          document.getElementById("oput1").innerHTML += ">";
-          gameover();
+          document.getElementById("oput1").innerHTML = ">";
+          document.getElementById("input1").value = "";
+          lastletter="";
           return;
         }
       }
-      documnet.getElementById('oput1').innerHTML += intext;
-      documnet.getElementById('oput1').innertext += " >";
-      lastletter = intext.charAt(-1);
-      clear();
+      document.getElementById('oput1').innerHTML += intext;
+      document.getElementById('oput1').innerHTML += " >";
+      lastletter = intext.charAt(intext.length-1);
+      console.log(lastletter);
+      text.value="";
     }
-
-    function enterkey() {
-      if (window.event.keycode == 13) {
-        exe();
-      }
-      function clear() {
-        document.getElementById('input1').value = '';
-      }
-      function gameover() {
-        lastletter = "";
-        document.getElementById("oput1").innerHTML = '>';
-        clear();
-      }
-    }
+    
   </script>
 </body>
 
